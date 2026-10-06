@@ -1,3 +1,5 @@
+from Algorithms.minimax import minimax
+
 ROWS = 6
 COLS = 7
 WIN_CHECK_DIRECTIONS = [(0,1),(1,0),(1,1),(1,-1)]
@@ -70,9 +72,9 @@ class Board:
 # Repeatedly asks for input until a valid input is made
 def get_input(board):
     while True:
-        player_input = input((f"Turn {len(board.history)}: Player {board.player_turn()} choose a column (1 - {COLS}) or 'q' to quit or 'u' to undo: "))
+        player_input = input((f"Turn {len(board.history)}: Player {board.player_turn()} choose a column (1 - {COLS}) or 'm' to let minimax play or 'q' to quit or 'u' to undo: "))
 
-        if player_input in ('q', 'u'):
+        if player_input in ('q', 'u', 'm'):
             if player_input == 'u' and not board.history:
                 print("No previous moves available!")
                 continue
@@ -92,32 +94,3 @@ def get_input(board):
 def print_board(board):
     for row in range(ROWS):
         print(" ".join(str(cell) for cell in board.grid[row]))
-
-# Main game loop
-def main():
-    board = Board()
-    while True:
-        print_board(board)
-        
-        player_input = get_input(board)
-        
-        if player_input == 'q':
-            print(f"Exiting game")
-            return
-
-        if player_input == 'u':
-            board.undo()
-            continue
-        
-        board.place_piece(player_input)
-        if board.is_full() or board.winner() != 0:
-            print_board(board)
-            winner = board.winner()
-            if winner != 0: 
-                print(f"Player {winner} wins!")
-            else:
-                print("Game tied!")
-            return
-
-if __name__ == "__main__":
-    main()
