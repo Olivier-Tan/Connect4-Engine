@@ -21,10 +21,11 @@ def main():
             print("AI is thinking...")
             ai_player = board.player_turn()
             
-            # Call the imported function
-            col, minimax_score = minimax(board, 4, True, ai_player) 
+            # The algorithm now returns the stats dictionary directly on the root call
+            col, minimax_score, stats = minimax(board, 5, True, ai_player) 
             
             print(f"AI plays column {col + 1} (Score: {minimax_score})")
+            print(f"Runtime: {stats['time_seconds']:.4f}s | Nodes: {stats['nodes_evaluated']:,} | Speed: {stats['nodes_per_second']:,.0f} n/s")
             board.place_piece(col)
         else:
             # Original manual piece placement
