@@ -1,29 +1,3 @@
-from connect_4 import Board
-
-# Global counters for the autotest feature
-passed_tests = 0
-failed_tests = 0
-
-def run_test(test_name, test_function):
-    """A custom test runner that executes a test, catches failures, and prints the result."""
-    global passed_tests, failed_tests
-    
-    # Create a fresh board for every test to ensure they don't interfere with each other
-    board = Board()
-    
-    try:
-        test_function(board)
-        print(f"[PASS] {test_name}")
-        passed_tests += 1
-    except AssertionError as e:
-        print(f"[FAIL] {test_name}")
-        print(f"       Reason: {e}")
-        failed_tests += 1
-    except Exception as e:
-        print(f"[FAIL] {test_name}")
-        print(f"       Reason: Unexpected Error -> {e}")
-        failed_tests += 1
-
 def test_column_overflow_handling(board):
     """Fills a single column completely and verifies it is removed from legal moves."""
     col = 0
@@ -94,19 +68,3 @@ def test_full_board_tie(board):
     assert board.is_full() == True, "Board is completely full but is_full() returned False."
     assert board.check_win() == False, "Board detected a win on a tied board."
     assert board.winner() == 0, f"Expected winner to be 0 (tie), got {board.winner()}"
-
-if __name__ == "__main__":
-    print("--- Starting Connect 4 Engine Autotest ---\n")
-    
-    run_test("Column Overflow Handling", test_column_overflow_handling)
-    run_test("Undo Mechanic", test_undo_mechanic)
-    run_test("Horizontal Win (Bottom Edge)", test_horizontal_win_bottom_edge)
-    run_test("Vertical Win (Top Edge)", test_vertical_win_top_edge)
-    run_test("Positive Diagonal Win", test_positive_diagonal_win)
-    run_test("Negative Diagonal Win", test_negative_diagonal_win)
-    run_test("Full Board Tie (Draw)", test_full_board_tie)
-    
-    print("\n--- Test Summary ---")
-    print(f"Total Tests Run: {passed_tests + failed_tests}")
-    print(f"Passing: {passed_tests}")
-    print(f"Failed:  {failed_tests}")
