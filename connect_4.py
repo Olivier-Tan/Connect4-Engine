@@ -1,5 +1,3 @@
-from Algorithms.minimax import minimax
-
 ROWS = 6
 COLS = 7
 WIN_CHECK_DIRECTIONS = [(0,1),(1,0),(1,1),(1,-1)]
