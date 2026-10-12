@@ -1,5 +1,4 @@
 import math
-import random
 import time
 
 from Algorithms.evaluation import evaluate_position
@@ -17,10 +16,7 @@ def alpha_beta(
     is_root = False
     if stats is None:
         is_root = True
-        stats = {
-            "nodes_evaluated": 0,
-            "start_time": time.perf_counter()
-        }
+        stats = {"nodes_evaluated": 0, "start_time": time.perf_counter()}
 
     stats["nodes_evaluated"] += 1
 
@@ -34,10 +30,12 @@ def alpha_beta(
     # RECURSIVE STEP: Maximizing Player (The AI)
     elif is_maximizing:
         value = -math.inf
-        best_col = random.choice(valid_moves)
+        best_col = valid_moves[0]
         for col in valid_moves:
             board.place_piece(col)
-            new_score = alpha_beta(board, depth - 1, False, ai_player, stats, alpha, beta)[1]
+            new_score = alpha_beta(
+                board, depth - 1, False, ai_player, stats, alpha, beta
+            )[1]
             board.undo()
 
             if new_score > value:
@@ -52,10 +50,12 @@ def alpha_beta(
     # RECURSIVE STEP: Minimizing Player (The Opponent)
     else:
         value = math.inf
-        best_col = random.choice(valid_moves)
+        best_col = valid_moves[0]
         for col in valid_moves:
             board.place_piece(col)
-            new_score = alpha_beta(board, depth - 1, True, ai_player, stats, alpha, beta)[1]
+            new_score = alpha_beta(
+                board, depth - 1, True, ai_player, stats, alpha, beta
+            )[1]
             board.undo()
 
             if new_score < value:
@@ -70,7 +70,9 @@ def alpha_beta(
     if is_root:
         elapsed = time.perf_counter() - stats["start_time"]
         stats["time_seconds"] = elapsed
-        stats["nodes_per_second"] = stats["nodes_evaluated"] / elapsed if elapsed > 0 else 0
+        stats["nodes_per_second"] = (
+            stats["nodes_evaluated"] / elapsed if elapsed > 0 else 0
+        )
         del stats["start_time"]
         return best_col, value, stats
     else:
