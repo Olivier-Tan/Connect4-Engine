@@ -9,5 +9,8 @@ wheels/
 # Virtual environments
 .venv
 
+# Benchmark-generated results
+results/
+
 # macOS
 .DS_Store
