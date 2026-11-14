@@ -13,7 +13,7 @@ def test_benchmark_preserves_position(board):
 
 def test_benchmark_agrees_on_scores(board):
     rows = run(depths=[1, 2], repeats=1, fixtures={"early": [3, 2, 3]})
-    assert len(rows) == 4
+    assert len(rows) == 8
     for depth in (1, 2):
         values = [r["score"] for r in rows if r["depth"] == depth]
         assert len(set(values)) == 1
