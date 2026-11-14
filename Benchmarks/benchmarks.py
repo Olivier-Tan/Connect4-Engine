@@ -7,10 +7,12 @@ import csv
 import statistics
 import time
 from pathlib import Path
+from functools import partial
 
 from connect_4 import Board
 from Algorithms.minimax import minimax
 from Algorithms.alpha_beta import alpha_beta
+from Algorithms.alpha_beta_ordered import alpha_beta_ordered
 
 # Known legal, nonterminal fixtures, independent of the random generator.
 FIXTURES = {
@@ -18,7 +20,16 @@ FIXTURES = {
     "early": [3, 2, 3, 4],
     "mid": [3, 2, 3, 4, 4, 5, 1, 2, 5, 6, 0, 1, 2, 5],
 }
-ALGORITHMS = {"minimax": minimax, "alpha_beta": alpha_beta}
+ALGORITHMS = {
+    "minimax": minimax,
+    "alpha_beta": alpha_beta,
+    "alpha_beta_center": partial(
+        alpha_beta_ordered, strategy="center"
+    ),
+    "alpha_beta_heuristic": partial(
+        alpha_beta_ordered, strategy="heuristic"
+    ),
+}
 FIELDS = ["position", "move_count", "algorithm", "depth", "score",
           "nodes_evaluated", "runtime_ms_median", "runtime_ms_min", "repeats"]
 
