@@ -12,7 +12,7 @@ def test_generator_categories(board):
 
 
 def test_generator_boundaries(board):
-    for category, target in (("early", 0), ("early", 13), ("mid", 14), ("late", 27), ("late", 30)):
+    for category, target in (("early", 0), ("early", 13), ("mid", 14), ("late", 28), ("late", 30)):
         generated, moves = generate_board(category, random.Random(1234), target_moves=target)
         assert len(moves) == target
         assert not generated.check_win()
