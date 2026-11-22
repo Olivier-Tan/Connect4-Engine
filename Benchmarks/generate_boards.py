@@ -11,7 +11,7 @@ from pathlib import Path
 
 from connect_4 import Board
 
-RANGES = {"early": (0, 13), "mid": (14, 27), "late": (27, 41)}
+RANGES = {"early": (0, 13), "mid": (14, 27), "late": (28, 41)}
 
 
 def replay(moves):
